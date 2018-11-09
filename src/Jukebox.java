@@ -12,6 +12,7 @@ import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,9 +27,12 @@ public class Jukebox implements Runnable, ActionListener {
 
 	JFrame frame;
 	JPanel panel;
-	JLabel labelA;
-	JLabel labelB;
-	JLabel labelC;
+	JButton buttonA;
+	JButton buttonB;
+	JButton buttonC;
+	Song blank;
+	Song song;
+	Song thing;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Jukebox());
@@ -39,9 +43,11 @@ public class Jukebox implements Runnable, ActionListener {
 		// 3. Find an mp3 on your computer or on the Internet.
 
 		// 4. Create a Song
-		Song blank = new Song("Super Smash Bros. Ultimate Main Theme - Lifelight.mp3");
+		blank = new Song("Super Smash Bros. Ultimate Main Theme - Lifelight.mp3");
+		song = new Song("Chopscrewey (SashiMori) [FULL SONG] - Splatoon 2 Soundtrack.mp3");
+		thing = new Song("NEW Vocal song by Pauline Ending Theme (SPOILERS!) - Super Mario Odyssey Soundtrack.mp3");
 		// 5. Play the Song
-		blank.play();
+	
 		/*
 		 * 6. Create a user interface for your Jukebox so that the user can to choose
 		 * which song to play. You can use can use a different button for each song, or
@@ -50,16 +56,21 @@ public class Jukebox implements Runnable, ActionListener {
 		 */
 		frame = new JFrame();
 		panel = new JPanel();
-		labelA = new JLabel();
-		labelB = new JLabel();
-		labelC = new JLabel();
+		buttonA = new JButton();
+		buttonB = new JButton();
+		buttonC = new JButton();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(panel);
-		labelA = loadImage("smashbros.jpg");
-		panel.add(labelA);
-		panel.add(labelB);
-		panel.add(labelC);
+		buttonA.setText("Smash Bros Ultimate");
+		buttonA.addActionListener(this);
+		buttonB.setText("Splatoon 2");
+		buttonB.addActionListener(this);
+		buttonC.setText("Super Mario Odyssey");
+		buttonC.addActionListener(this);
+		panel.add(buttonA);
+		panel.add(buttonB);
+		panel.add(buttonC);
 		frame.pack();
 	}
 
@@ -73,7 +84,16 @@ public class Jukebox implements Runnable, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-
+		blank.stop();
+		song.stop();
+		thing.stop();
+		if(e.getSource()==buttonA) {
+			blank.play();
+		} if(e.getSource()==buttonB) {
+			song.play();
+		} if(e.getSource()==buttonC) {
+			thing.play();
+		}
 	}
 
 }
